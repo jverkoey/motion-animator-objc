@@ -13,48 +13,20 @@
 # limitations under the License.
 
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
 
 git_repository(
-    name = "build_bazel_rules_apple",
-    remote = "https://github.com/bazelbuild/rules_apple.git",
-    tag = "0.9.0",
+    name = "bazel_workspace_apple",
+    remote = "https://github.com/jverkoey/bazel-workspace-apple.git",
+    commit = "df02434910031031cb8c614f538c5966db283711",  # Dec 29, 2019
+    shallow_since = "1577726613 -0500",  # Recommended by bazel.
 )
 
-load(
-    "@build_bazel_rules_apple//apple:repositories.bzl",
-    "apple_rules_dependencies",
-)
-
-apple_rules_dependencies()
-
-git_repository(
-    name = "build_bazel_rules_swift",
-    remote = "https://github.com/bazelbuild/rules_swift.git",
-    tag = "0.4.0",
-)
-
-load(
-    "@build_bazel_rules_swift//swift:repositories.bzl",
-    "swift_rules_dependencies",
-)
-
-swift_rules_dependencies()
-
-git_repository(
-    name = "bazel_ios_warnings",
-    remote = "https://github.com/material-foundation/bazel_ios_warnings.git",
-    tag = "v2.0.0",
-)
+load("@bazel_workspace_apple//apple:repositories.bzl", "apple_workspace_dependencies")
+apple_workspace_dependencies()
 
 git_repository(
     name = "motion_interchange_objc",
-    remote = "https://github.com/material-motion/motion-interchange-objc.git",
-    commit = "v3.0.0",
-)
-
-http_file(
-    name = "xctestrunner",
-    executable = 1,
-    urls = ["https://github.com/google/xctestrunner/releases/download/0.2.5/ios_test_runner.par"],
+    remote = "https://github.com/jverkoey/motion-interchange-objc.git",
+    commit = "d5b5985d37f9c163237f4d7457d2ebe38ce6057e",
+    shallow_since = "1577726680 -0500",  # Recommended by bazel.
 )

@@ -15,9 +15,12 @@
 # Description:
 # A Motion Animator creates performant, interruptible animations from motion specs.
 
-load("@build_bazel_rules_apple//apple:ios.bzl", "ios_ui_test")
+load("@bazel_skylib//rules:build_test.bzl", "build_test")
+load("@build_bazel_rules_apple//apple:ios.bzl", "ios_ui_test_suite")
+load("@build_bazel_rules_apple//apple/testing/default_runner:ios_test_runner.bzl", "ios_test_runner")
 load("@build_bazel_rules_swift//swift:swift.bzl", "swift_library")
 load("@bazel_ios_warnings//:strict_warnings_objc_library.bzl", "strict_warnings_objc_library")
+load("@bazel_apple_framework_relative_headers//:apple_framework_relative_headers.bzl", "apple_framework_relative_headers")
 
 licenses(["notice"])  # Apache 2.0
 
@@ -38,13 +41,28 @@ strict_warnings_objc_library(
         "Foundation",
         "QuartzCore",
     ],
-    defines = ["IS_BAZEL_BUILD"],
     deps = [
-      "@motion_interchange_objc//:MotionInterchange"
+        "@motion_interchange_objc//:MotionInterchange",
+        ":MotionAnimatorFrameworkHeaders",
     ],
     enable_modules = 1,
-    includes = ["src"],
+    module_name = "MotionAnimator",
     visibility = ["//visibility:public"],
+)
+
+apple_framework_relative_headers(
+    name = "MotionAnimatorFrameworkHeaders",
+    hdrs = glob([
+        "src/*.h",
+    ]),
+    framework_name = "MotionAnimator",
+)
+
+build_test(
+    name = "BuildTest",
+    targets = [
+        ":MotionAnimator"
+    ],
 )
 
 swift_library(
@@ -52,7 +70,6 @@ swift_library(
     srcs = glob([
         "tests/unit/*.swift",
     ]),
-    defines = ["IS_BAZEL_BUILD"],
     deps = [":MotionAnimator"],
     visibility = ["//visibility:private"],
 )
@@ -70,14 +87,36 @@ objc_library(
     visibility = ["//visibility:private"],
 )
 
-ios_ui_test(
+ios_test_runner(
+    name = "IPHONE_7_PLUS_IN_10_3",
+    device_type = "iPhone 7 Plus",
+    os_version = "10.3",
+)
+
+ios_test_runner(
+    name = "IPHONE_X_IN_11_4",
+    device_type = "iPhone X",
+    os_version = "11.4",
+)
+
+ios_test_runner(
+    name = "IPHONE_XS_MAX_IN_12_2",
+    device_type = "iPhone Xs Max",
+    os_version = "12.2",
+)
+
+ios_ui_test_suite(
     name = "UnitTests",
     deps = [
       ":UnitTestsLib",
       ":UnitTestsSwiftLib"
     ],
-    test_host = "@build_bazel_rules_apple//apple/testing/default_host/ios",
-    minimum_os_version = "9.0",
-    timeout = "short",
-    visibility = ["//visibility:private"],
+    test_host = "@bazel_test_host_apple//test_host",
+    minimum_os_version = "10.0",
+    timeout = "moderate",
+    runners = [
+        ":IPHONE_7_PLUS_IN_10_3",
+        ":IPHONE_X_IN_11_4",
+        ":IPHONE_XS_MAX_IN_12_2",
+    ],
 )

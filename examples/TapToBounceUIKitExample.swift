@@ -46,31 +46,32 @@ class TapToBounceUIKitExampleViewController: UIViewController {
                      for: [.touchUpInside, .touchUpOutside, .touchDragExit])
   }
 
-  func didFocus(_ sender: UIButton) {
+  @objc func didFocus(_ sender: UIButton) {
     MotionAnimator.animate(withDuration: 0.8,
                            delay: 0,
                            usingSpringWithDamping: 0.5,
                            initialSpringVelocity: 0,
                            options: [],
                            animations: {
-      sender.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+                            sender.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
 
-      // This would normally not be animatable with the UIView animation APIs, but it is animatable
-      // with the motion animator.
-      sender.layer.borderWidth = 10
+                            // This would normally not be animatable with the UIView animation APIs, but it is animatable
+                            // with the motion animator.
+                            sender.layer.borderWidth = 10
     }, completion: nil)
   }
 
-  func didUnfocus(_ sender: UIButton) {
+  @objc func didUnfocus(_ sender: UIButton) {
     MotionAnimator.animate(withDuration: 0.8,
                            delay: 0,
                            usingSpringWithDamping: 0.5,
                            initialSpringVelocity: 0,
                            options: [],
                            animations: {
-      sender.transform = .identity
-      sender.layer.borderWidth = 0
+                            sender.transform = .identity
+                            sender.layer.borderWidth = 0
     }, completion: nil)
   }
 }
+
 

@@ -9,7 +9,7 @@ DEPENDENCIES:
   - MotionAnimator (from `./`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - CatalogByConvention
     - MotionInterchange
 
@@ -24,4 +24,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 3537bf01c11174928ac008c20fec4738722e96f3
 
-COCOAPODS: 1.6.0
+COCOAPODS: 1.8.4

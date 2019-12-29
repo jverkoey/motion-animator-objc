@@ -54,7 +54,7 @@ class ImplicitAnimationTests: XCTestCase {
 
   override func tearDown() {
     let implementation =
-        class_getMethodImplementation(CALayer.self, #selector(CALayer.action(forKey:)))
+      class_getMethodImplementation(CALayer.self, #selector(CALayer.action(forKey:)))
     XCTAssertEqual(originalImplementation, implementation)
 
     animator = nil
@@ -88,14 +88,14 @@ class ImplicitAnimationTests: XCTestCase {
     XCTAssertEqual(animation.duration, traits.duration)
 
     let timingCurve = traits.timingCurve as! CAMediaTimingFunction
-    XCTAssertEqualWithAccuracy(timingCurve.mdm_point1.x, animation.timingFunction!.mdm_point1.x,
-                               accuracy: 0.001)
-    XCTAssertEqualWithAccuracy(timingCurve.mdm_point1.y, animation.timingFunction!.mdm_point1.y,
-                               accuracy: 0.001)
-    XCTAssertEqualWithAccuracy(timingCurve.mdm_point2.x, animation.timingFunction!.mdm_point2.x,
-                               accuracy: 0.001)
-    XCTAssertEqualWithAccuracy(timingCurve.mdm_point2.y, animation.timingFunction!.mdm_point2.y,
-                               accuracy: 0.001)
+    XCTAssertEqual(timingCurve.mdm_point1.x, animation.timingFunction!.mdm_point1.x,
+                   accuracy: 0.001)
+    XCTAssertEqual(timingCurve.mdm_point1.y, animation.timingFunction!.mdm_point1.y,
+                   accuracy: 0.001)
+    XCTAssertEqual(timingCurve.mdm_point2.x, animation.timingFunction!.mdm_point2.x,
+                   accuracy: 0.001)
+    XCTAssertEqual(timingCurve.mdm_point2.y, animation.timingFunction!.mdm_point2.y,
+                   accuracy: 0.001)
   }
 
   func testTwoActionsAddsTwoAnimations() {
@@ -118,14 +118,14 @@ class ImplicitAnimationTests: XCTestCase {
       XCTAssertEqual(animation.duration, traits.duration)
 
       let timingCurve = traits.timingCurve as! CAMediaTimingFunction
-      XCTAssertEqualWithAccuracy(timingCurve.mdm_point1.x, animation.timingFunction!.mdm_point1.x,
-                                 accuracy: 0.001)
-      XCTAssertEqualWithAccuracy(timingCurve.mdm_point1.y, animation.timingFunction!.mdm_point1.y,
-                                 accuracy: 0.001)
-      XCTAssertEqualWithAccuracy(timingCurve.mdm_point2.x, animation.timingFunction!.mdm_point2.x,
-                                 accuracy: 0.001)
-      XCTAssertEqualWithAccuracy(timingCurve.mdm_point2.y, animation.timingFunction!.mdm_point2.y,
-                                 accuracy: 0.001)
+      XCTAssertEqual(timingCurve.mdm_point1.x, animation.timingFunction!.mdm_point1.x,
+                     accuracy: 0.001)
+      XCTAssertEqual(timingCurve.mdm_point1.y, animation.timingFunction!.mdm_point1.y,
+                     accuracy: 0.001)
+      XCTAssertEqual(timingCurve.mdm_point2.x, animation.timingFunction!.mdm_point2.x,
+                     accuracy: 0.001)
+      XCTAssertEqual(timingCurve.mdm_point2.y, animation.timingFunction!.mdm_point2.y,
+                     accuracy: 0.001)
     }
     do {
       let animation = addedAnimations[1] as! CABasicAnimation
@@ -136,14 +136,14 @@ class ImplicitAnimationTests: XCTestCase {
       XCTAssertEqual(animation.duration, traits.duration)
 
       let timingCurve = traits.timingCurve as! CAMediaTimingFunction
-      XCTAssertEqualWithAccuracy(timingCurve.mdm_point1.x, animation.timingFunction!.mdm_point1.x,
-                                 accuracy: 0.001)
-      XCTAssertEqualWithAccuracy(timingCurve.mdm_point1.y, animation.timingFunction!.mdm_point1.y,
-                                 accuracy: 0.001)
-      XCTAssertEqualWithAccuracy(timingCurve.mdm_point2.x, animation.timingFunction!.mdm_point2.x,
-                                 accuracy: 0.001)
-      XCTAssertEqualWithAccuracy(timingCurve.mdm_point2.y, animation.timingFunction!.mdm_point2.y,
-                                 accuracy: 0.001)
+      XCTAssertEqual(timingCurve.mdm_point1.x, animation.timingFunction!.mdm_point1.x,
+                     accuracy: 0.001)
+      XCTAssertEqual(timingCurve.mdm_point1.y, animation.timingFunction!.mdm_point1.y,
+                     accuracy: 0.001)
+      XCTAssertEqual(timingCurve.mdm_point2.x, animation.timingFunction!.mdm_point2.x,
+                     accuracy: 0.001)
+      XCTAssertEqual(timingCurve.mdm_point2.y, animation.timingFunction!.mdm_point2.y,
+                     accuracy: 0.001)
     }
   }
 
@@ -159,26 +159,26 @@ class ImplicitAnimationTests: XCTestCase {
 
     do {
       let animation = addedAnimations
-          .flatMap { $0 as? CABasicAnimation }
-          .first(where: { $0.keyPath == AnimatableKeyPath.position.rawValue})!
+        .compactMap { $0 as? CABasicAnimation }
+        .first(where: { $0.keyPath == AnimatableKeyPath.position.rawValue})!
       XCTAssertFalse(animation.isAdditive)
       XCTAssertEqual(animation.fromValue as! CGPoint, .init(x: 0, y: 0))
       XCTAssertEqual(animation.toValue as! CGPoint, .init(x: 50, y: 50))
       XCTAssertEqual(animation.duration, traits.duration)
 
       let timingCurve = traits.timingCurve as! CAMediaTimingFunction
-      XCTAssertEqualWithAccuracy(timingCurve.mdm_point1.x, animation.timingFunction!.mdm_point1.x,
-                                 accuracy: 0.001)
-      XCTAssertEqualWithAccuracy(timingCurve.mdm_point1.y, animation.timingFunction!.mdm_point1.y,
-                                 accuracy: 0.001)
-      XCTAssertEqualWithAccuracy(timingCurve.mdm_point2.x, animation.timingFunction!.mdm_point2.x,
-                                 accuracy: 0.001)
-      XCTAssertEqualWithAccuracy(timingCurve.mdm_point2.y, animation.timingFunction!.mdm_point2.y,
-                                 accuracy: 0.001)
+      XCTAssertEqual(timingCurve.mdm_point1.x, animation.timingFunction!.mdm_point1.x,
+                     accuracy: 0.001)
+      XCTAssertEqual(timingCurve.mdm_point1.y, animation.timingFunction!.mdm_point1.y,
+                     accuracy: 0.001)
+      XCTAssertEqual(timingCurve.mdm_point2.x, animation.timingFunction!.mdm_point2.x,
+                     accuracy: 0.001)
+      XCTAssertEqual(timingCurve.mdm_point2.y, animation.timingFunction!.mdm_point2.y,
+                     accuracy: 0.001)
     }
     do {
       let animation = addedAnimations
-        .flatMap { $0 as? CABasicAnimation }
+        .compactMap { $0 as? CABasicAnimation }
         .first(where: { $0.keyPath == AnimatableKeyPath.bounds.rawValue})!
       XCTAssertFalse(animation.isAdditive)
       XCTAssertEqual(animation.fromValue as! CGRect, .init(x: 0, y: 0, width: 0, height: 0))
@@ -186,14 +186,14 @@ class ImplicitAnimationTests: XCTestCase {
       XCTAssertEqual(animation.duration, traits.duration)
 
       let timingCurve = traits.timingCurve as! CAMediaTimingFunction
-      XCTAssertEqualWithAccuracy(timingCurve.mdm_point1.x, animation.timingFunction!.mdm_point1.x,
-                                 accuracy: 0.001)
-      XCTAssertEqualWithAccuracy(timingCurve.mdm_point1.y, animation.timingFunction!.mdm_point1.y,
-                                 accuracy: 0.001)
-      XCTAssertEqualWithAccuracy(timingCurve.mdm_point2.x, animation.timingFunction!.mdm_point2.x,
-                                 accuracy: 0.001)
-      XCTAssertEqualWithAccuracy(timingCurve.mdm_point2.y, animation.timingFunction!.mdm_point2.y,
-                                 accuracy: 0.001)
+      XCTAssertEqual(timingCurve.mdm_point1.x, animation.timingFunction!.mdm_point1.x,
+                     accuracy: 0.001)
+      XCTAssertEqual(timingCurve.mdm_point1.y, animation.timingFunction!.mdm_point1.y,
+                     accuracy: 0.001)
+      XCTAssertEqual(timingCurve.mdm_point2.x, animation.timingFunction!.mdm_point2.x,
+                     accuracy: 0.001)
+      XCTAssertEqual(timingCurve.mdm_point2.y, animation.timingFunction!.mdm_point2.y,
+                     accuracy: 0.001)
     }
   }
 
@@ -265,3 +265,4 @@ class ImplicitAnimationTests: XCTestCase {
                   + "\(view.layer.animationKeys()!)")
   }
 }
+
