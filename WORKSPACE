@@ -28,4 +28,5 @@ git_repository(
     name = "motion_interchange_objc",
     remote = "https://github.com/jverkoey/motion-interchange-objc.git",
     commit = "988280220fe78557d9f5e60c7998ee5b42cc77b5",
+    shallow_since = "1577835972 -0500",  # Recommended by bazel.
 )
