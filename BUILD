@@ -114,6 +114,7 @@ ios_ui_test_suite(
     test_host = "@bazel_test_host_apple//test_host",
     minimum_os_version = "10.0",
     timeout = "moderate",
+    flaky = 1,
     runners = [
         ":IPHONE_7_PLUS_IN_10_3",
         ":IPHONE_X_IN_11_4",

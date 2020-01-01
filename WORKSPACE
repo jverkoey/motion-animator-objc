@@ -27,6 +27,5 @@ apple_workspace_dependencies()
 git_repository(
     name = "motion_interchange_objc",
     remote = "https://github.com/jverkoey/motion-interchange-objc.git",
-    commit = "d5b5985d37f9c163237f4d7457d2ebe38ce6057e",
-    shallow_since = "1577726680 -0500",  # Recommended by bazel.
+    commit = "988280220fe78557d9f5e60c7998ee5b42cc77b5",
 )
